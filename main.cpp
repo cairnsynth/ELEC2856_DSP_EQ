@@ -2,6 +2,7 @@
 #include "rtos.h"
 #include "LowPass.h"
 #include "HighPass.h"
+#include "BandPass.h"
 #include "Amp.h"
 #include <chrono>
 #include <cstdint>
@@ -24,8 +25,7 @@ AnalogIn highFrequency_in(PC_1);
 const float offset = 0.3030303f; 
 const float pi     = 3.14159265358979;
 
-float lowAmp;
-float lowFreq = 100.0f;
+float lowFreq = 50.0f;
 
 float sampleFreq = 48000.0f;
 int sampleInterval_us(int(1000000/sampleFreq));
@@ -33,11 +33,11 @@ int sampleFreq_actual(1000000/sampleInterval_us);
 
 int controlFreq(1000);
 
-float highAmp;
-float highFreq = 100.0f;
+float highFreq = 150.0f;
 
-LowPass lpFilt(lowFreq, sampleFreq, 1.0f);
-HighPass hpFilt(highFreq, sampleFreq, 1.0f);
+LowPass lpFilt(lowFreq, sampleFreq_actual, 1.0f);
+HighPass hpFilt(highFreq, sampleFreq_actual, 1.0f);
+BandPass bpFilt(lowFreq, highFreq, sampleFreq_actual, 1.0f);
 
 Timer t;
 
@@ -75,6 +75,7 @@ int main()
 
 void process_eq() {
     input = inputSig.read() - offset;
-    output = hpFilt.update(input) + lpFilt.update(input);
+    //output = bpFilt.update(input);
+    output = hpFilt.update(input) + lpFilt.update(input) + bpFilt.update(input);
     outputSig.write(output + offset);
 }

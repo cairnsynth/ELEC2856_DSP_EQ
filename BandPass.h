@@ -25,7 +25,6 @@ class BandPass {                                        //Band pass filter class
         void set_gain(float gain) {                     //Function handles setting gain of band pass
             _gain = gain;
         }
-
     private:                                            //Private members
         float _output;
         float _sampleFreq;

@@ -5,7 +5,7 @@
 #include "LowPass2.h"
 #include "HighPass2.h"
 
-class BandPass2 {                                        //Band pass filter class
+class BandPass2 {                                        //2nd order Band pass filter class
     public:                                             //Public members
         BandPass2(float lowCutoff, float highCutoff, float sampleFreq, float gain) :         //Class constructor
             _lpFilt(highCutoff, sampleFreq, 1.0f), _hpFilt(lowCutoff, sampleFreq, 1.0f) {   //Explicit initialization of filters
@@ -25,7 +25,6 @@ class BandPass2 {                                        //Band pass filter clas
         void set_gain(float gain) {                     //Function handles setting gain of band pass
             _gain = gain;
         }
-
     private:                                            //Private members
         float _output;
         float _sampleFreq;

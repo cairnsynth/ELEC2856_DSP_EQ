@@ -28,8 +28,6 @@ class BandPass2 {                                        //2nd order Band pass f
     private:                                            //Private members
         float _output;
         float _sampleFreq;
-        float _coeffLP[2];
-        float _coeffHP;
         float _gain;
         LowPass2 _lpFilt;
         HighPass2 _hpFilt;

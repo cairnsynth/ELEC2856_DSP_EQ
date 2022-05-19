@@ -25,7 +25,7 @@
 #define HIGH_FREQ_MIN       2000.0f
 #define HIGH_FREQ_MAX       10000.0f
 #define OFFSET              1.0f/3.3f
-#define SAMPLE_RATE         48000.0f
+#define SAMPLE_RATE         44100.0f
 
 DigitalIn       eqModeIn(PIN_LOW_MODE, PullDown);
 AnalogIn        inputSig(PIN_INPUT);                                //Input/output signal objects
@@ -61,8 +61,10 @@ int main()                                                          //Main funct
             ticks++;                                                //Increment ticks
             if(ticks % int(sampleFreq_actual) == 0) {               //Every second
                 indicator = !indicator;                             //Toggle indicator LED
-                ticks = 0;                                          //reset ticks
-                // outputSig = 1.0;                                     
+                ticks = 0;                                          //reset ticks                                    
+            }
+            if(ticks < (sampleFreq_actual/2)) {
+                outputSig = 1.0;
             }
             if(ticks % controlFreq == 0) {                          //If time = control update time
                 update_controls();                                  //Update controls

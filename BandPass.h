@@ -28,8 +28,6 @@ class BandPass {                                        //Band pass filter class
     private:                                            //Private members
         float _output;
         float _sampleFreq;
-        float _coeffLP[2];
-        float _coeffHP;
         float _gain;
         LowPass _lpFilt;
         HighPass _hpFilt;
